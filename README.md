@@ -69,7 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   The running port should look like this
 </p>
 <p align="center">
-<img src="Assets/joke-2=e" >
+<img src="Assets/joke-3.PNG" >
 </p>
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
