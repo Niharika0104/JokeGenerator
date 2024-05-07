@@ -1,6 +1,10 @@
 "use client";
 import React  from 'react';
 import { useState,useEffect} from 'react';
+import {
+  useCopilotAction,
+  useCopilotReadable,
+} from "@copilotkit/react-core";
 const samplememes = [
   "Why don't scientists trust atoms? Because they make up everything!",
   "Did you hear about the mathematician who's afraid of negative numbers? He'll stop at nothing to avoid them.",
@@ -11,6 +15,7 @@ const samplememes = [
   "I'm reading a book on anti-gravity. It's impossible to put down!",
   "Why did the bicycle fall over? Because it was two-tired!"
 ];
+
 interface MyComponentProps {
   optionalProp?: string;
 }
@@ -19,6 +24,38 @@ interface MyComponentProps {
 const DevMemeGenerator :React.FC<MyComponentProps> =({ optionalProp }) => {
   const [memes,setmemes]=useState(samplememes);
   const [randomMeme, setRandomMeme] = useState<string | null>(null);
+  useCopilotReadable({
+  description:
+    "Create jokes on any topic ",
+  value: [
+    {
+      name: "meme",
+      type: "string",
+      description: "Meme to be generated",
+      required: true,
+    }
+  ]});
+
+useCopilotAction(
+  {
+    name: "generatememesAndImplementationTutorial",
+    description:
+      "Create jokes on any topic ",
+    parameters: [
+      {
+        name: "meme",
+        type: "string",
+        description: "Meme to be generated",
+        required: true,
+      }
+    ],
+    handler: async ({ meme }) => {
+      setmemes((prev) => [...prev, meme]);
+     
+    },
+  },
+  [memes]
+);
  useEffect(()=>{
 generateRandomMeme();
  })
